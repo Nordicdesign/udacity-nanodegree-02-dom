@@ -1,19 +1,22 @@
 // ========== NAVIGATION =============================
 const CreateNavigation = () => {
-  // get the headers of #recipe-list
-  let headers = document.querySelectorAll('#recipe-list h2');
-  let headersText = []
+  // get the text meant for the nav of #recipe-list
+  let sections = document.querySelectorAll('#recipe-list section');
+  const navLinks = []
 
-  headers.forEach((header) => {
-    headersText.push(header.innerText)
+  sections.forEach((section) => {
+    navLinks.push({
+      title: section.getAttribute("data-nav"),
+      link: section.getAttribute("id")
+    })
   })
 
   // create a list if items
   const navElements = document.createDocumentFragment()
 
-  for (let i = 0; i < headersText.length; i++) {
+  for (let link of navLinks) {
     const newListItem = document.createElement('li');
-    newListItem.innerHTML = "<a href='#section" + i + "'>" + headersText[i] + "</a>";
+    newListItem.innerHTML = "<a href='#" + link.link + "'>" + link.title + "</a>";
     navElements.appendChild(newListItem);
   }
 
@@ -68,10 +71,10 @@ const NavIsVisible = (e) => {
   }
 }
 
-document.onscroll = NavIsVisible;
 
 // ========== back to top ======================================
 
 
-
+// execute all the things 
 CreateNavigation()
+document.onscroll = NavIsVisible;
