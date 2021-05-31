@@ -24,6 +24,22 @@ const CreateNavigation = () => {
 }
 
 // event listener to smooth navigation links ====================================
+const SmoothLinkOperation = (e) => {
+  console.log("smooooth operatoooooor");
+  e.preventDefault();
+  const sectionId = e.srcElement.hash
+  // get the section coordinates
+  const toScrollHeight = document.getElementById(sectionId.slice(1)).offsetTop
+  // smoothly scroll to the coordinates
+  window.scrollTo({
+    top: toScrollHeight,
+    left: 0,
+    behavior: 'smooth'
+  });
+}
+
+let nav = document.getElementById('navigation')
+nav.addEventListener('click', SmoothLinkOperation)
 
 // event listener to highlight currently viewed section =========================
 
