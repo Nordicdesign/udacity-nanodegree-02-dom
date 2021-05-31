@@ -1,0 +1,7 @@
+body {
+  font-family: var(--font-stack);
+  color: var(--body);
+}
+p, td, li {
+  font-size: 120%;
+}

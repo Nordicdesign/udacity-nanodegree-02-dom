@@ -1,0 +1,32 @@
+@import "./_reset.css";
+@import "./_variables.css";
+@import "./_typography.css";
+
+.page__wrapper {
+  width: 96%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+header.page__header {
+  border-bottom: 1px solid var(--grey300);
+  margin-bottom: 64px;
+}
+
+header.page__header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+header.page__header ul li {
+  margin-right: 32px;
+}
+
+section {
+  border: 1px solid var(--grey300);
+  border-radius: 4px;
+  margin-bottom: 64px;
+  padding: 16px 32px;
+}
