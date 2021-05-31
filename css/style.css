@@ -30,3 +30,11 @@ section {
   margin-bottom: 64px;
   padding: 16px 32px;
 }
+
+nav.fixed {
+  position: fixed;
+  width: 100%;
+  background: white;
+  top: 0;
+  padding: 16px 0;
+}
