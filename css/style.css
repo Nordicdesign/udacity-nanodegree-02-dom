@@ -31,10 +31,20 @@ section {
   padding: 16px 32px;
 }
 
+section.on-screen {
+  border-left: 3px solid tomato;
+}
+
+nav {
+  transition: 0.2s ease all;
+  padding: 16px 0;
+  top: 0;
+}
+
 nav.fixed {
   position: fixed;
   width: 100%;
   background: white;
   top: 0;
-  padding: 16px 0;
+
 }
