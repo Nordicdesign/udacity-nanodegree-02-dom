@@ -90,11 +90,19 @@ function isNavVisible(e) {
 
 
 function displayBackToTop(e) {
-  // capture where the user is
+  let height = e.target.scrollingElement.clientHeight;
   let newScroll = e.target.scrollingElement.scrollTop;
-  console.log(newScroll);
-  // if below certain Y, display the back to top
-  // if (newScroll > )
+  const target = document.getElementById('back-to-top');
+
+  newScroll > height ? target.classList.add('visible') : target.classList.remove('visible');
+
+  target.addEventListener('click', () => {
+    window.scrollTo({
+      top: pageXOffset,
+      left: 0,
+      behavior: 'smooth'
+    });
+  });
 }
 
 
