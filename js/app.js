@@ -12,23 +12,41 @@ function createNavigation() {
 
   // create a list if items
   const navElements = document.createDocumentFragment();
+  const selectElements = document.createDocumentFragment();
 
   for (let link of navLinks) {
+    // medium and large links
     const newListItem = document.createElement('li');
     newListItem.innerHTML = "<a href='#" + link.link + "'>" + link.title + "</a>";
     navElements.appendChild(newListItem);
+    // small screen links
+    const newOptionItem = document.createElement('option');
+    newOptionItem.innerHTML = link.title;
+    newOptionItem.setAttribute('value', link.link);
+    selectElements.appendChild(newOptionItem);
   }
 
   // append them to the navigation
   document.getElementById('navigation').appendChild(navElements);
+  document.getElementById('small-navigation').appendChild(selectElements);
 }
 
+function getSectionName(e) {
+  if (e.type === 'click') {
+    sectionId = e.srcElement.hash;
+    return sectionId.slice(1); // remove the #
+  }
+  else if (e.type === 'change') {
+    return e.target.value;
+  }
+}
 
 function smoothLinkOperation(e) {
   e.preventDefault();
-  const sectionId = e.srcElement.hash;
+  const sectionId = getSectionName(e);
+
   // get the section coordinates
-  const toScrollHeight = document.getElementById(sectionId.slice(1)).offsetTop;
+  const toScrollHeight = document.getElementById(sectionId).offsetTop;
   // smoothly scroll to the coordinates
   window.scrollTo({
     top: toScrollHeight - 80,
@@ -56,39 +74,22 @@ function highlightCurrentSection(entries, target) {
 
 function observeIfVisible(observedTarget, target) {
   // callback
-  let callback = (entries) => {
-    // let targetVisible;
-    highlightCurrentSection(entries, target)
-  }
-
+  let callback = (entries) => highlightCurrentSection(entries, target)
   // init the observer
   let observer = new IntersectionObserver(callback, { threshold: [0.6] });
   observer.observe(observedTarget); // start the listener
 }
 
+const headerCallback = (entries) => entries.forEach(entry => {
+  const nav = document.querySelector('.page__header nav');
+  !entry.isIntersecting ? nav.classList.add('fixed') : nav.classList.remove('fixed');
+} );
 
-let headerVisible;
 function isNavVisible() {
   // check is header is visible, update headerVisible accordingly
-  let headerCallback = (entries) => {
-    entries.forEach(entry => entry.isIntersecting ? headerVisible = true : headerVisible = false );
-  }
-
   let observerHeader = new IntersectionObserver(headerCallback, { threshold: [0.3] });
   let target = document.querySelector('.page__header');
-  observerHeader.observe(target); // start the listener
-
-
-  // add or remove class depending on position and scroll up happening
-  const nav = document.querySelector('.page__header nav')
-  // console.log(headerVisible);
-
-  if (!headerVisible) {
-    nav.classList.add('fixed');
-  }
-  else  { // remove fixed nav if header is visible
-    nav.classList.remove('fixed');
-  }
+  observerHeader.observe(target);
 }
 
 
@@ -117,10 +118,12 @@ function observeSections() {
   }
 }
 
+
 function scrollListener(e) {
   isNavVisible();
   displayBackToTop(e);
 }
+
 
 // execute all the things
 createNavigation();
@@ -128,3 +131,5 @@ observeSections();
 document.onscroll = scrollListener;
 let nav = document.getElementById('navigation');
 nav.addEventListener('click', smoothLinkOperation);
+let navSelect = document.getElementById('small-navigation');
+navSelect.addEventListener('change', smoothLinkOperation);

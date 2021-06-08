@@ -2,6 +2,10 @@
 @import "./_variables.css";
 @import "./_typography.css";
 
+img {
+  max-width: 100%;
+}
+
 .page__wrapper {
   width: 96%;
   max-width: 1080px;
@@ -22,7 +26,19 @@ header.page__header ul {
 
 header.page__header ul li {
   margin-right: 32px;
-  padding: 8px 0; 
+  padding: 8px 0;
+}
+
+@media screen and (max-width: 850px) {
+  header.page__header ul li {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  header.page__header ul {
+    display: none;
+  }
 }
 
 header.page__header ul li.current {
@@ -31,6 +47,24 @@ header.page__header ul li.current {
 
 header.page__header ul li a {
   text-decoration: none;
+}
+
+header.page__header select#small-navigation {
+  display: none;
+}
+
+@media screen and (max-width: 650px) {
+  header.page__header select#small-navigation {
+    display: block;
+    line-height: 1.5;
+    min-width: 200px;
+    font-size: 1rem;
+    padding: 8px 4px;
+  }
+}
+
+header.page__header .fixed select#small-navigation {
+  margin-left: 16px;
 }
 
 section {
