@@ -38,13 +38,27 @@ function smoothLinkOperation(e) {
 };
 
 
-let currentScroll;
+function highlightCurrentSection(entries, target) {
+  entries.forEach(entry => {
+    const selector = 'a[href="#'+ entry.target.id +'"]'
+    const navElement = document.querySelector(selector)
+    if (entry.isIntersecting) {
+      target.classList.add('on-screen');
+      navElement.parentNode.classList.add('current');
+    }
+    else {
+      target.classList.remove('on-screen');
+      navElement.parentNode.classList.remove('current');
+    }
+  });
+}
 
-function observeIfVisible(observedTarget, target, className) {
+
+function observeIfVisible(observedTarget, target) {
   // callback
   let callback = (entries) => {
-    let targetVisible;
-    entries.forEach(entry => entry.isIntersecting ? target.classList.add(className) : target.classList.remove(className) );
+    // let targetVisible;
+    highlightCurrentSection(entries, target)
   }
 
   // init the observer
@@ -53,14 +67,8 @@ function observeIfVisible(observedTarget, target, className) {
 }
 
 
-
-
-
 let headerVisible;
 function isNavVisible(e) {
-  // TODO: investigate scroll up js
-  // gets current scroll position
-  let newScroll = e.target.scrollingElement.scrollTop;
   // check is header is visible, update headerVisible accordingly
   let headerCallback = (entries) => {
     entries.forEach(entry => entry.isIntersecting ? headerVisible = true : headerVisible = false );
@@ -75,16 +83,11 @@ function isNavVisible(e) {
   const nav = document.querySelector('.page__header nav')
   // console.log(headerVisible);
 
-  if (currentScroll && newScroll < currentScroll && !headerVisible) {
-    currentScroll = newScroll;
+  if (!headerVisible) {
     nav.classList.add('fixed');
   }
-  else if (headerVisible) { // remove fixed nav if header is visible
-    currentScroll = newScroll;
+  else  { // remove fixed nav if header is visible
     nav.classList.remove('fixed');
-  }
-  else { // if user is scrolling down, just update position
-    currentScroll = newScroll;
   }
 }
 
@@ -110,7 +113,7 @@ function observeSections() {
   const sections = document.querySelectorAll('#recipe-list section')
 
   for (let section of sections) {
-    observeIfVisible(section, section, 'on-screen')
+    observeIfVisible(section, section)
   }
 }
 

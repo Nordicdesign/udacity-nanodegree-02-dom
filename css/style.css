@@ -22,6 +22,15 @@ header.page__header ul {
 
 header.page__header ul li {
   margin-right: 32px;
+  padding: 8px 0; 
+}
+
+header.page__header ul li.current {
+  border-bottom: 2px solid tomato;
+}
+
+header.page__header ul li a {
+  text-decoration: none;
 }
 
 section {
@@ -46,6 +55,14 @@ nav.fixed {
   width: 100%;
   background: white;
   top: 0;
+  left: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+nav.fixed ul {
+  width: 96%;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
 #back-to-top {
