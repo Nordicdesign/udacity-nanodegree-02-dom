@@ -1,4 +1,4 @@
-# Udacity nanodegree - Landing page
+# Udacity nanodegree - Landing page
 
 ## Key features
 
@@ -7,6 +7,6 @@
 - Current section is highlighted both in the body and the nav
 - BackToTop appears after user scrolls 1 fold
 
-## Project specification
+## Project specification
 
 https://review.udacity.com/#!/rubrics/2658/view
