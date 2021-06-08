@@ -1,4 +1,4 @@
-function createNavigation() {
+const createNavigation = () => {
   // get the text meant for the nav of #recipe-list
   let sections = document.querySelectorAll('#recipe-list section');
   const navLinks = [];
@@ -31,7 +31,7 @@ function createNavigation() {
   document.getElementById('small-navigation').appendChild(selectElements);
 }
 
-function getSectionName(e) {
+const getSectionName = (e) => {
   if (e.type === 'click') {
     sectionId = e.srcElement.hash;
     return sectionId.slice(1); // remove the #
@@ -41,7 +41,7 @@ function getSectionName(e) {
   }
 }
 
-function smoothLinkOperation(e) {
+const smoothLinkOperation = (e) => {
   e.preventDefault();
   const sectionId = getSectionName(e);
 
@@ -56,7 +56,7 @@ function smoothLinkOperation(e) {
 }
 
 
-function highlightCurrentSection(entries, target) {
+const highlightCurrentSection = (entries, target) => {
   entries.forEach(entry => {
     const selector = 'a[href="#'+ entry.target.id +'"]'
     const navElement = document.querySelector(selector)
@@ -72,7 +72,7 @@ function highlightCurrentSection(entries, target) {
 }
 
 
-function observeIfVisible(observedTarget, target) {
+const observeIfVisible = (observedTarget, target) => {
   // callback
   let callback = (entries) => highlightCurrentSection(entries, target)
   // init the observer
@@ -85,7 +85,7 @@ const headerCallback = (entries) => entries.forEach(entry => {
   !entry.isIntersecting ? nav.classList.add('fixed') : nav.classList.remove('fixed');
 } );
 
-function isNavVisible() {
+const isNavVisible = () => {
   // check is header is visible, update headerVisible accordingly
   let observerHeader = new IntersectionObserver(headerCallback, { threshold: [0.3] });
   let target = document.querySelector('.page__header');
@@ -93,7 +93,7 @@ function isNavVisible() {
 }
 
 
-function displayBackToTop(e) {
+const displayBackToTop = (e) => {
   let height = e.target.scrollingElement.clientHeight;
   let newScroll = e.target.scrollingElement.scrollTop;
   const target = document.getElementById('back-to-top');
@@ -110,7 +110,7 @@ function displayBackToTop(e) {
 }
 
 
-function observeSections() {
+const observeSections = () => {
   const sections = document.querySelectorAll('#recipe-list section')
 
   for (let section of sections) {
@@ -119,7 +119,7 @@ function observeSections() {
 }
 
 
-function scrollListener(e) {
+const scrollListener = (e) => {
   isNavVisible();
   displayBackToTop(e);
 }
