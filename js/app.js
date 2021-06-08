@@ -58,15 +58,19 @@ const smoothLinkOperation = (e) => {
 
 const highlightCurrentSection = (entries, target) => {
   entries.forEach(entry => {
-    const selector = 'a[href="#'+ entry.target.id +'"]'
-    const navElement = document.querySelector(selector)
+    const selector = 'a[href="#'+ entry.target.id +'"]';
+    const navElement = document.querySelector(selector);
+    const selectSelector = 'option[value="'+ entry.target.id +'"]';
+    const selectElement = document.querySelector(selectSelector);
     if (entry.isIntersecting) {
       target.classList.add('on-screen');
       navElement.parentNode.classList.add('current');
+      selectElement.setAttribute('selected', 'selected');
     }
     else {
       target.classList.remove('on-screen');
       navElement.parentNode.classList.remove('current');
+      selectElement.removeAttribute('selected');
     }
   });
 }
