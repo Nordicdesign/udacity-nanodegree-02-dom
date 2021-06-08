@@ -21,7 +21,7 @@ function createNavigation() {
 
   // append them to the navigation
   document.getElementById('navigation').appendChild(navElements);
-};
+}
 
 
 function smoothLinkOperation(e) {
@@ -35,7 +35,7 @@ function smoothLinkOperation(e) {
     left: 0,
     behavior: 'smooth'
   });
-};
+}
 
 
 function highlightCurrentSection(entries, target) {
@@ -68,7 +68,7 @@ function observeIfVisible(observedTarget, target) {
 
 
 let headerVisible;
-function isNavVisible(e) {
+function isNavVisible() {
   // check is header is visible, update headerVisible accordingly
   let headerCallback = (entries) => {
     entries.forEach(entry => entry.isIntersecting ? headerVisible = true : headerVisible = false );
@@ -118,7 +118,7 @@ function observeSections() {
 }
 
 function scrollListener(e) {
-  isNavVisible(e);
+  isNavVisible();
   displayBackToTop(e);
 }
 
