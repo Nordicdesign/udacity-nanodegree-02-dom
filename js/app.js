@@ -122,10 +122,25 @@ const observeSections = () => {
   }
 }
 
-
+let timeoutScroll = [];
 const scrollListener = (e) => {
   isNavVisible();
   displayBackToTop(e);
+  hideNavWhenNotScrolling(timeoutScroll);
+}
+
+const hideNavWhenNotScrolling = (timeoutScroll) => {
+  console.log(timeoutScroll);
+  // window.clearTimeout(timeoutScroll);
+  // clear any timeout when the user scrolls
+  for (let timeout in timeoutScroll) {
+    console.log("current timeout is ",timeout);
+    clearTimeout(timeout);
+  }
+
+  // setTimeout so after 2s nav is hidden
+  const nav = document.querySelector('.page__header nav');
+  timeoutScroll.push(setTimeout(() => nav.classList.remove('fixed'), 4000));
 }
 
 

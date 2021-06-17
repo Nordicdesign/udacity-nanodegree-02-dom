@@ -74,6 +74,16 @@ section {
   padding: 16px 32px;
 }
 
+section header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+section header p {
+  color: blue;
+  cursor: pointer;
+}
+
 section.on-screen {
   border-left: 3px solid tomato;
 }
