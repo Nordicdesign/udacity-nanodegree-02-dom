@@ -31,15 +31,16 @@ const createNavigation = () => {
   document.getElementById('small-navigation').appendChild(selectElements);
 }
 
+
 const getSectionName = (e) => {
   if (e.type === 'click') {
     sectionId = e.srcElement.hash;
     return sectionId.slice(1); // remove the #
-  }
-  else if (e.type === 'change') {
+  } else if (e.type === 'change') {
     return e.target.value;
   }
 }
+
 
 const smoothLinkOperation = (e) => {
   e.preventDefault();
@@ -58,16 +59,15 @@ const smoothLinkOperation = (e) => {
 
 const highlightCurrentSection = (entries, target) => {
   entries.forEach(entry => {
-    const selector = 'a[href="#'+ entry.target.id +'"]';
+    const selector = 'a[href="#' + entry.target.id + '"]';
     const navElement = document.querySelector(selector);
-    const selectSelector = 'option[value="'+ entry.target.id +'"]';
+    const selectSelector = 'option[value="' + entry.target.id + '"]';
     const selectElement = document.querySelector(selectSelector);
     if (entry.isIntersecting) {
       target.classList.add('on-screen');
       navElement.parentNode.classList.add('current');
       selectElement.setAttribute('selected', 'selected');
-    }
-    else {
+    } else {
       target.classList.remove('on-screen');
       navElement.parentNode.classList.remove('current');
       selectElement.removeAttribute('selected');
@@ -80,18 +80,24 @@ const observeIfVisible = (observedTarget, target) => {
   // callback
   let callback = (entries) => highlightCurrentSection(entries, target)
   // init the observer
-  let observer = new IntersectionObserver(callback, { threshold: [0.9] });
+  let observer = new IntersectionObserver(callback, {
+    threshold: [0.9]
+  });
   observer.observe(observedTarget); // start the listener
 }
+
 
 const headerCallback = (entries) => entries.forEach(entry => {
   const nav = document.querySelector('.page__header nav');
   !entry.isIntersecting ? nav.classList.add('fixed') : nav.classList.remove('fixed');
-} );
+});
+
 
 const isNavVisible = () => {
   // check is header is visible, update headerVisible accordingly
-  let observerHeader = new IntersectionObserver(headerCallback, { threshold: [0.3] });
+  let observerHeader = new IntersectionObserver(headerCallback, {
+    threshold: [0.3]
+  });
   let target = document.querySelector('.page__header');
   observerHeader.observe(target);
 }
@@ -129,6 +135,7 @@ const scrollListener = (e) => {
   hideNavWhenNotScrolling();
 }
 
+
 let timeoutScroll;
 const hideNavWhenNotScrolling = () => {
   // clear any timeout when the user scrolls
@@ -138,20 +145,24 @@ const hideNavWhenNotScrolling = () => {
   timeoutScroll = setTimeout(() => nav.classList.remove('fixed'), 2000);
 }
 
+
 const smoothLinks = () => {
   const nav = document.getElementById('navigation');
   nav.addEventListener('click', smoothLinkOperation);
 }
+
 
 const smoothSelects = () => {
   const navSelect = document.getElementById('small-navigation');
   navSelect.addEventListener('change', smoothLinkOperation);
 }
 
+
 const swapClass = (section, theClass) => {
   section.innerText === 'Collapse' ? section.innerText = 'Show' : section.innerText = 'Collapse'
   section.parentNode.nextElementSibling.classList.toggle(theClass);
 }
+
 
 const collapseSections = () => {
   const sections = document.querySelectorAll('#recipe-list section header p')
