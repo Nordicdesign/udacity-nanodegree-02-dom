@@ -1,6 +1,6 @@
-@import "./_reset.css";
-@import "./_variables.css";
-@import "./_typography.css";
+@import "./reset.css";
+@import "./variables.css";
+@import "./typography.css";
 
 img {
   max-width: 100%;
