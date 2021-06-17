@@ -80,7 +80,7 @@ const observeIfVisible = (observedTarget, target) => {
   // callback
   let callback = (entries) => highlightCurrentSection(entries, target)
   // init the observer
-  let observer = new IntersectionObserver(callback, { threshold: [0.6] });
+  let observer = new IntersectionObserver(callback, { threshold: [0.9] });
   observer.observe(observedTarget); // start the listener
 }
 
@@ -126,7 +126,7 @@ const observeSections = () => {
 const scrollListener = (e) => {
   isNavVisible();
   displayBackToTop(e);
-  hideNavWhenNotScrolling(timeoutScroll);
+  hideNavWhenNotScrolling();
 }
 
 let timeoutScroll;
@@ -138,12 +138,33 @@ const hideNavWhenNotScrolling = () => {
   timeoutScroll = setTimeout(() => nav.classList.remove('fixed'), 2000);
 }
 
+const smoothLinks = () => {
+  const nav = document.getElementById('navigation');
+  nav.addEventListener('click', smoothLinkOperation);
+}
+
+const smoothSelects = () => {
+  const navSelect = document.getElementById('small-navigation');
+  navSelect.addEventListener('change', smoothLinkOperation);
+}
+
+const swapClass = (section, theClass) => {
+  section.innerText === 'Collapse' ? section.innerText = 'Show' : section.innerText = 'Collapse'
+  section.parentNode.nextElementSibling.classList.toggle(theClass);
+}
+
+const collapseSections = () => {
+  const sections = document.querySelectorAll('#recipe-list section header p')
+  for (let section of sections) {
+    section.addEventListener('click', () => swapClass(section, 'section--content_visible'));
+  }
+
+}
 
 // execute all the things
 createNavigation();
 observeSections();
 document.onscroll = scrollListener;
-let nav = document.getElementById('navigation');
-nav.addEventListener('click', smoothLinkOperation);
-let navSelect = document.getElementById('small-navigation');
-navSelect.addEventListener('change', smoothLinkOperation);
+smoothLinks();
+smoothSelects();
+collapseSections();

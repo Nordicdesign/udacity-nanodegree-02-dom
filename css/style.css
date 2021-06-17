@@ -74,10 +74,19 @@ section {
   padding: 16px 32px;
 }
 
+div.section--content {
+  display: none;
+}
+
+div.section--content_visible {
+  display: block;
+}
+
 section header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
 }
 section header p {
   color: blue;
